@@ -22,6 +22,7 @@ const Home = ({ classes }) => (
     <Carousel
       infiniteLoop
       autoPlay
+      showThumbs={false}
       showArrows={false}
       showStatus={false}
       stopOnHover={false}

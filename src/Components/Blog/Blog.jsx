@@ -52,6 +52,23 @@ class Blog extends React.Component {
       //   blogData ? console.log(blogData) : console.log('fag')
       return (
         <div className={classes.root}>
+          <Button
+            color="primary"
+            variant="raised"
+            onClick={this.handlePrevious}
+            disabled={index === length - 1}
+          >
+                Prev
+          </Button>
+          <Button
+            color="primary"
+            className={classes.next}
+            variant="raised"
+            onClick={this.handleNext}
+            disabled={index === 0}
+          >
+                Next
+          </Button>
           {
               blogData &&
               <Card>
