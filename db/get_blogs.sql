@@ -1,0 +1,1 @@
+select * from blogs order by id desc;

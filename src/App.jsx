@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import router from './router/router'
 import NavBar from './Components/NavBar/NavBar'
 
+const back = require('./assets/back.png')
+
 class App extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -23,8 +25,11 @@ class App extends Component {
 const styles = {
   root: {
     fontFamily: 'Roboto',
-    background: 'black',
-    height: '100vh',
+    height: '100%',
+    backgroundAttachment: 'fixed',
+    backgroundImage: `url(${back})`,
+    backgroundRepeat: 'repeat',
+    paddingBottom: '100px',
   },
 }
 

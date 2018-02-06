@@ -13,6 +13,7 @@ class NavBar extends React.Component {
     }
 
     toggleDrawer = () => this.setState({ open: !this.state.open })
+
     handleClose = () => this.setState({ open: false })
 
     render() {
@@ -30,7 +31,7 @@ class NavBar extends React.Component {
                 open={this.state.open}
                 onClose={this.toggleDrawer}
               >
-                <MenuItems handleclose={this.handleClose} />
+                <MenuItems handleClose={this.handleClose} />
               </Drawer>
             </Toolbar>
           </AppBar>
