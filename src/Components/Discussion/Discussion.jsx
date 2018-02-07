@@ -221,6 +221,7 @@ const styles = theme => ({
     margin: 'auto',
     top: '5vh',
     background: 'white',
+    overflowWrap: 'break-word',
   },
   time: {
     marginBottom: 16,
