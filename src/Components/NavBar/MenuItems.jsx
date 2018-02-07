@@ -21,11 +21,11 @@ const MenuItems = ({ handleClose, classes }) => (
         <ListItemText className={classes.listText} primary="Blog" />
       </ListItem>
       <Divider />
-      <ListItem className={classes.listItem} button component={Link} to="/forum" onClick={handleClose}>
+      <ListItem className={classes.listItem} button component={Link} to="/Discussion" onClick={handleClose}>
         <ListItemIcon>
           <QuestionAnswer />
         </ListItemIcon>
-        <ListItemText className={classes.listText} primary="Forum" />
+        <ListItemText className={classes.listText} primary="Discussion" />
       </ListItem>
       <Divider />
       <ListItem className={classes.listItem} button component={Link} to="/gallery" onClick={handleClose}>
