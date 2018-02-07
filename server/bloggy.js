@@ -5,10 +5,13 @@ const express = require('express'),
   session = require('express-session'),
   massive = require('massive'),
   socket = require('socket.io'),
-  getBlogs = require('./decorators/getBlogs')
+  getBlogs = require('./decorators/getBlogs'),
+  sendMsg = require('./decorators/sendMsg'),
+  getMsg = require('./decorators/getMsg')
 
 const app = express()
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '200mb' }))
+app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }))
 app.use(cors())
 
 massive(process.env.DB_CONNECTION).then((db) => {
@@ -24,26 +27,8 @@ app.use(session({
 app.use(express.static(`${__dirname}/../build`))
 
 getBlogs(app)
-
-// const io = app.listen(process.env.SERVER_PORT, () => console.log('wubba lubba dub dub!'))
-
-// io.on('connection', (socket) => {
-// socket.on('emit message', (input) => {
-//   socket.emit('generate response', input)
-// })
-// // sends to everyone but original sender
-// socket.on('broadcast message', (input) => {
-//   socket.broadcast.emit('generate response', input)
-// })
-// socket.on('blast message', (input) => {
-//   io.sockets.emit('generate response', input)
-// })
-// // joins the specified room
-// socket.on('join room', (input) => {
-//   socket.join(input.path.split('/')[1])
-// })
-// })
-
+sendMsg(app)
+getMsg(app)
 
 const io = socket.listen(app.listen(process.env.SERVER_PORT, () => {
   console.log('wubba lubba dub dub!')
@@ -53,7 +38,7 @@ io.on('connection', (client) => {
   client.on('subscribeToTimer', (interval) => {
     console.log('client is subscribing to timer with interval ', interval);
     setInterval(() => {
-      client.emit('timer', new Date());
+      client.emit('timer', new Date().toString());
     }, interval);
   })
 })

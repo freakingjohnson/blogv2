@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui'
+import { withStyles, Reboot } from 'material-ui'
 import PropTypes from 'prop-types'
 import router from './router/router'
 import NavBar from './Components/NavBar/NavBar'
@@ -15,6 +15,7 @@ class App extends Component {
     const { classes } = this.props
     return (
       <div className={classes.root}>
+        <Reboot />
         <NavBar />
         {router}
       </div>
@@ -29,7 +30,7 @@ const styles = {
     backgroundAttachment: 'fixed',
     backgroundImage: `url(${back})`,
     backgroundRepeat: 'repeat',
-    paddingBottom: '100px',
+    paddingBottom: '120vh',
   },
 }
 

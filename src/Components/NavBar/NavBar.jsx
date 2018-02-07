@@ -22,7 +22,7 @@ class NavBar extends React.Component {
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar className={classes.toolBar}>
-              <h1>BloggyBlogBlog</h1>
+              <h1 className={classes.title}>BloggyBlogBlog</h1>
               <IconButton onClick={this.toggleDrawer} className={classes.left}>
                 <Menu className={classes.menu} />
               </IconButton>
@@ -56,15 +56,18 @@ const styles = {
     transform: 'translateY(-50%)',
   },
   toolBar: {
-    paddingLeft: '0px',
-    paddingRight: '0px',
-    display: 'flex',
-    justifyContent: 'center',
-    position: 'relative',
+    paddingLeft: '0',
+    paddingRight: '0',
+    height: '0',
+    fontSize: '0.5em',
+    justifyContent: 'left',
   },
   menu: {
     fontSize: '32px',
     color: '#706b66',
+  },
+  title: {
+    marginLeft: '40px',
   },
 };
 
