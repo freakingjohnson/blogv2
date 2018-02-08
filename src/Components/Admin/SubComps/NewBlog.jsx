@@ -2,11 +2,13 @@ import React from 'react'
 import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 import { Button, GridList, Typography, TextField, withStyles } from 'material-ui'
-import { changeBody, changeTitle } from '../../../ducks/reducer'
+import { changeBody, changeTitle, postBlog } from '../../../ducks/reducer'
+
 
 const NewBlog = ({
-  classes, modules, formats, body, title, changeBody, changeTitle,
+  classes, modules, formats, body, title, changeBody, changeTitle, postBlog,
 }) => (
   <div className={classes.root}>
     <TextField
@@ -22,6 +24,14 @@ const NewBlog = ({
       placeholder="start typing..."
       onChange={changeBody}
     />
+    <Button
+      variant="raised"
+      color="primary"
+      disabled={!body || !title}
+      onClick={() => postBlog(title, body)}
+    >
+    Post
+    </Button>
   </div>
 )
 
@@ -43,6 +53,7 @@ NewBlog.propTypes = {
   title: PropTypes.string.isRequired,
   changeBody: PropTypes.func.isRequired,
   changeTitle: PropTypes.func.isRequired,
+  postBlog: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
@@ -53,4 +64,4 @@ const mapStateToProps = state => ({
   title: state.title,
 })
 
-export default connect(mapStateToProps, { changeBody, changeTitle })(withStyles(styles)(NewBlog))
+export default connect(mapStateToProps, { changeBody, changeTitle, postBlog })(withStyles(styles)(NewBlog))
