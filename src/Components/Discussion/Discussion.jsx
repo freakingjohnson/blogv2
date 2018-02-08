@@ -4,16 +4,19 @@ import { Button, GridList, Typography, TextField, withStyles } from 'material-ui
 import io from 'socket.io-client'
 import axios from 'axios'
 import ReactQuill from 'react-quill'
+import { connect } from 'react-redux'
+import createDOMPurify from 'dompurify'
 import '../../../node_modules/react-quill/dist/quill.snow.css'
-import subscribeToTimer from './api'
+import subscribeToTimer from './timer'
 
 const socket = io(),
-  createDOMPurify = require('dompurify'),
   DOMPurify = createDOMPurify(window)
 
 class Discussion extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    modules: PropTypes.object.isRequired,
+    formats: PropTypes.array.isRequired,
   }
   constructor() {
     super()
@@ -28,23 +31,7 @@ class Discussion extends React.Component {
       message: '',
       history: [],
       timestamp: 'no timestamp',
-      modules: {
-        toolbar: [
-          [{ header: [1, 2, false] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-          ['link', 'image'],
-          ['clean'],
-        ],
-      },
-      formats: [
-        'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet', 'indent',
-        'link', 'image',
-      ],
     }
-
     subscribeToTimer((err, timestamp) => this.setState({
       timestamp,
     }))
@@ -59,17 +46,15 @@ class Discussion extends React.Component {
     })
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.getMessages()
   }
-
   getMessages = () => {
     axios.get('/api/getMsg')
       .then((res) => {
         this.setState({
           history: res.data,
         })
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -106,17 +91,13 @@ class Discussion extends React.Component {
     this.setState({ name: e.target.value })
   }
   render() {
-    const {
-      classes,
-    } = this.props
+    const { classes, modules, formats } = this.props
     const {
       name,
       message,
       timestamp,
       chat,
       history,
-      formats,
-      modules,
     } = this.state
     const chatHistory = history.map(message => (
       <div key={message.id}>
@@ -158,7 +139,7 @@ class Discussion extends React.Component {
             className={classes.time}
             component="b"
           >
-            {message.name ? `${message.name}(me)` : 'Anonymous Me'}
+            {message.name ? `${message.name}(me)` : 'Anonymous'}
           </Typography>
           <Typography
             align="right"
@@ -213,8 +194,7 @@ class Discussion extends React.Component {
     );
   }
 }
-
-const styles = theme => ({
+const styles = {
   root: {
     width: '80%',
     position: 'relative',
@@ -222,11 +202,12 @@ const styles = theme => ({
     top: '5vh',
     background: 'white',
     overflowWrap: 'break-word',
+    boxShadow: '5px 10px 18px grey',
+    borderRadius: '.4em',
   },
   time: {
-    marginBottom: 16,
     fontSize: 14,
-    color: theme.palette.text.secondary,
+    color: 'grey',
   },
   gridList: {
     width: '100%',
@@ -236,6 +217,7 @@ const styles = theme => ({
     position: 'relative',
     background: '#00aabb',
     borderRadius: '.4em',
+    margin: '0 5px 0 5px',
   },
   container: {
     background: 'white',
@@ -248,5 +230,10 @@ const styles = theme => ({
     padding: '10px',
   },
 }
-)
-export default withStyles(styles)(Discussion)
+
+const mapStateToProps = state => ({
+  modules: state.modules,
+  formats: state.formats,
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(Discussion))
