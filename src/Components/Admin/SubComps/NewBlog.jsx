@@ -2,8 +2,7 @@ import React from 'react'
 import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import axios from 'axios'
-import { Button, GridList, Typography, TextField, withStyles } from 'material-ui'
+import { Button, TextField, withStyles } from 'material-ui'
 import { changeBody, changeTitle, postBlog } from '../../../ducks/reducer'
 
 
