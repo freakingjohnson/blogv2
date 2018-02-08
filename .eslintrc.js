@@ -27,7 +27,7 @@ module.exports = {
         "eol-last": 0,
         "jsx-a11y/anchor-is-valid": 0,
         "one-var": 0,
-        "no-unused-vars": 0,
+        "no-unused-vars": 1,
         "react/prop-types": 1,
         "no-shadow": 0,
         "no-console": 0,
@@ -45,5 +45,6 @@ module.exports = {
         "camelcase": 0,
         "no-unneeded-ternary": 0,
         "jsx-a11y/media-has-caption": 0,
+        "no-unused-expressions": 0,
     }
 };
