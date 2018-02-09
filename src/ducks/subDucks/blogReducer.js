@@ -53,7 +53,7 @@ export const postBlog = (title, body) => {
   }
 }
 
-export default function reducer(state = initialState, action) {
+export default function blogReducer(state = initialState, action) {
   const { payload, type } = action
   switch (type) {
     case CHANGE_BODY:

@@ -50,7 +50,7 @@ class Gallery extends React.Component {
           {
             imageData && imageData.map(tile => (
               <GridListTile
-                onClick={_ => this.handleClick(tile.img)}
+                onClick={() => this.handleClick(tile.img)}
                 key={tile.id}
                 cols={tile.cols}
               >

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button, TextField, withStyles } from 'material-ui'
 import { changeBody, changeTitle, postBlog } from '../../../ducks/subDucks/blogReducer'
-import UploadImg from './UploadImg'
 
 const NewBlog = ({
   classes, modules, formats, body, title, changeBody, changeTitle, postBlog,
@@ -31,7 +30,6 @@ const NewBlog = ({
     >
     Post
     </Button>
-    <UploadImg />
   </div>
 )
 
@@ -46,6 +44,13 @@ const styles = {
   },
 }
 
+const mapStateToProps = state => ({
+  modules: state.blogReducer.modules,
+  formats: state.blogReducer.formats,
+  body: state.blogReducer.body,
+  title: state.blogReducer.title,
+})
+
 NewBlog.propTypes = {
   modules: PropTypes.object.isRequired,
   formats: PropTypes.array.isRequired,
@@ -56,12 +61,5 @@ NewBlog.propTypes = {
   postBlog: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
-
-const mapStateToProps = state => ({
-  modules: state.blogReducer.modules,
-  formats: state.blogReducer.formats,
-  body: state.blogReducer.body,
-  title: state.blogReducer.title,
-})
 
 export default connect(mapStateToProps, { changeBody, changeTitle, postBlog })(withStyles(styles)(NewBlog))
