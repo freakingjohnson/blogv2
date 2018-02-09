@@ -64,24 +64,23 @@ class Discussion extends React.Component {
     let element = document.getElementById('list');
     element.scrollTop = element.scrollHeight - element.clientHeight;
   }
-  sendMessage = () => {
+  sendMessage = async () => {
     if (this.state.message.length > 0 && this.state.message !== '<p><br></p>') {
       socket.emit('send message', {
         name: this.state.name,
         message: this.state.message,
         time: this.state.timestamp,
       })
-      axios.post('/api/sendmsg', {
+      await axios.post('/api/sendmsg', {
         body: this.state.message,
         name: this.state.name,
         date: this.state.timestamp,
-      }).then((res) => {
+      }).then(() => {
       }).catch((err) => {
+        console.log(err)
       })
-      this.setState({ message: '<p><br></p>' })
-      this.gotoBottom()
-    } else if (this.state.message.toString() === '<p><br></p>') {
       this.setState({ message: '' })
+      this.gotoBottom()
     }
   }
   changeMessage = (value) => {
@@ -208,10 +207,11 @@ const styles = {
   time: {
     fontSize: 14,
     color: 'grey',
+    margin: 0,
   },
   gridList: {
     width: '100%',
-    height: 350,
+    height: 320,
   },
   bubble: {
     position: 'relative',
@@ -232,8 +232,8 @@ const styles = {
 }
 
 const mapStateToProps = state => ({
-  modules: state.modules,
-  formats: state.formats,
+  modules: state.blogReducer.modules,
+  formats: state.blogReducer.formats,
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(Discussion))

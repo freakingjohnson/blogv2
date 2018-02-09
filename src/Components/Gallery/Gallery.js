@@ -5,17 +5,17 @@ import { withStyles, GridList, GridListTile } from 'material-ui'
 import axios from 'axios'
 
 class Gallery extends React.Component {
-    static propTypes = {
-      classes: PropTypes.object.isRequired,
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+  }
+  constructor() {
+    super()
+    this.state = {
+      imageData: undefined,
+      isOpen: false,
+      imageSrc: '',
     }
-    constructor() {
-      super()
-      this.state = {
-        imageData: undefined,
-        isOpen: false,
-        imageSrc: '',
-      }
-    }
+  }
 
   componentDidMount = () => {
     axios.get('/api/getimg')
@@ -48,23 +48,23 @@ class Gallery extends React.Component {
       <div className={classes.root}>
         <GridList cellHeight={160} className={classes.gridList} cols={3}>
           {
-              imageData && imageData.map(tile => (
-                <GridListTile
-                  onClick={_ => this.handleClick(tile.img)}
-                  key={tile.id}
-                  cols={tile.cols}
-                >
-                  <img src={tile.img} alt={tile.title} />
-                </GridListTile>
-        ))
-        }
+            imageData && imageData.map(tile => (
+              <GridListTile
+                onClick={_ => this.handleClick(tile.img)}
+                key={tile.id}
+                cols={tile.cols}
+              >
+                <img src={tile.img} alt={tile.title} />
+              </GridListTile>
+            ))
+          }
         </GridList>
         {
-            isOpen &&
-            <Lightbox
-              mainSrc={imageSrc}
-              onCloseRequest={() => this.setState({ isOpen: false })}
-            />
+          isOpen &&
+          <Lightbox
+            mainSrc={imageSrc}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+          />
         }
       </div>
     )
@@ -81,11 +81,10 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    // backgroundColor: 'grey',
   },
   gridList: {
-    width: 500,
-    height: 500,
+    width: 700,
+    height: 490,
     margin: '5px',
   },
   subheader: {

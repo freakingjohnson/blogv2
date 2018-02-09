@@ -26,11 +26,13 @@ class App extends Component {
 const styles = {
   root: {
     fontFamily: 'Roboto',
-    height: '100vh',
-    backgroundAttachment: 'fixed',
+    height: 'auto',
+    minHeight: '100vh',
+    paddingBottom: '60px',
     backgroundImage: `url(${back})`,
+    backgroundAttachment: 'fixed',
     backgroundRepeat: 'repeat',
-    paddingBottom: '120vh',
+    backgroundSize: 'cover',
   },
 }
 

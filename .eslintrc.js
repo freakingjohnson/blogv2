@@ -46,5 +46,6 @@ module.exports = {
         "no-unneeded-ternary": 0,
         "jsx-a11y/media-has-caption": 0,
         "no-unused-expressions": 0,
+        "no-bitwise": 0,
     }
 };

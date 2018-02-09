@@ -1,12 +1,12 @@
-const postBlog = (req, res) => {
+const postImg = (req, res) => {
   const db = req.app.get('db')
   console.log(req.body)
-  db.post_blog([req.body.title, req.body.body, req.body.date])
+  db.post_image([req.body.image, req.body.title, req.body.publicId, req.body.cols])
     .then(() => res.status(200).send())
     .catch(err =>
       res.status(500).send(err))
 }
 
 module.exports = (app) => {
-  app.post('/api/postblog', postBlog)
+  app.post('/api/postimg', postImg)
 }
