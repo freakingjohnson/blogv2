@@ -53,6 +53,7 @@ class Gallery extends React.Component {
                 onClick={() => this.handleClick(tile.img)}
                 key={tile.id}
                 cols={tile.cols}
+                rows={tile.image_row}
               >
                 <img src={tile.img} alt={tile.title} />
               </GridListTile>
