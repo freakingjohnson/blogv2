@@ -1,24 +1,25 @@
 import React from 'react';
-import { MenuItem, TextField, Button, withStyles, Select, FormControl, InputLabel } from 'material-ui'
+import { MenuItem, TextField, Button, withStyles, Select } from 'material-ui'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { change, drop, post } from '../../../ducks/subDucks/imgReducer'
+import { change, drop, post, getImg } from '../../../ducks/subDucks/imgReducer'
 
-const upload = (image, cols, rows, title, cb) => {
+const upload = (image, cols, rows, title, cb, cb2) => {
   let uploaders = image.map((image) => {
     const formData = new FormData();
     formData.append('file', image);
     formData.append('tags', 'blogpictures');
-    formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET); // Replace the preset name with your own
-    formData.append('api_key', process.env.REACT_APP_CLOUDINARY_API_KEY); // Replace API key with your own Cloudinary key
+    formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+    formData.append('api_key', process.env.REACT_APP_CLOUDINARY_API_KEY)
     formData.append('timestamp', (Date.now() / 1000) | 0);
     return axios.post(process.env.REACT_APP_CLOUDINARY_UPLOAD_URL, formData, {
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
     }).then((response) => {
       const { secure_url, public_id } = response.data
       cb(title, cols, rows, secure_url, public_id)
+      cb2()
     }).catch((err) => {
       console.log(err)
     })
@@ -26,11 +27,11 @@ const upload = (image, cols, rows, title, cb) => {
 }
 
 const UploadImg = ({
-  classes, name, change, drop, cols, rows, image, post,
+  classes, name, change, drop, cols, rows, image, post, getImg,
 }) => (
   <div className={classes.root}>
     <div>
-      <h1>Upload Image to Gallery</h1>
+      <p>Upload Image</p>
       <TextField
         primary="true"
         placeholder="Enter Image Name Here"
@@ -70,7 +71,7 @@ const UploadImg = ({
     </div>
     <Button
       variant="raised"
-      onClick={() => upload(image, cols, rows, name, post)}
+      onClick={() => upload(image, cols, rows, name, post, getImg)}
       color="primary"
     >
         Upload
@@ -100,6 +101,7 @@ UploadImg.propTypes = {
   change: PropTypes.func.isRequired,
   drop: PropTypes.func.isRequired,
   post: PropTypes.func.isRequired,
+  getImg: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   cols: PropTypes.number.isRequired,
@@ -107,4 +109,6 @@ UploadImg.propTypes = {
   image: PropTypes.array.isRequired,
 }
 
-export default connect(mapStateToProps, { change, drop, post })(withStyles(styles)(UploadImg))
+export default connect(mapStateToProps, {
+  change, drop, post, getImg,
+})(withStyles(styles)(UploadImg))

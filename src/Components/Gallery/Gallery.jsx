@@ -1,36 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Lightbox from 'react-image-lightbox'
+import { connect } from 'react-redux'
 import { withStyles, GridList, GridListTile } from 'material-ui'
-import axios from 'axios'
+
 
 class Gallery extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    imageData: PropTypes.array.isRequired,
   }
-  constructor() {
-    super()
-    this.state = {
-      imageData: undefined,
-      isOpen: false,
-      imageSrc: '',
-    }
+  state = {
+    isOpen: false,
+    imageSrc: '',
   }
 
-  componentDidMount = () => {
-    axios.get('/api/getimg')
-      .then((res) => {
-        this.setState({
-          imageData: res.data,
-        })
-        // console.log(this.state.imageData)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  handleClick = (img) => {
+  handleLightbox = (img) => {
     this.setState({
       isOpen: true,
       imageSrc: img,
@@ -38,10 +23,9 @@ class Gallery extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, imageData } = this.props
     const {
       isOpen,
-      imageData,
       imageSrc,
     } = this.state
     return (
@@ -50,7 +34,7 @@ class Gallery extends React.Component {
           {
             imageData && imageData.map(tile => (
               <GridListTile
-                onClick={() => this.handleClick(tile.img)}
+                onClick={() => this.handleLightbox(tile.img)}
                 key={tile.id}
                 cols={tile.cols}
                 rows={tile.image_row}
@@ -93,4 +77,8 @@ const styles = {
   },
 }
 
-export default withStyles(styles)(Gallery)
+const mapStateToProps = state => ({
+  imageData: state.imgReducer.imageData,
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(Gallery))

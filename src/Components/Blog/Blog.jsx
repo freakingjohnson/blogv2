@@ -10,26 +10,24 @@ class Blog extends React.Component {
     static propTypes = {
       classes: PropTypes.object.isRequired,
     }
-    constructor() {
-      super()
-      this.state = {
-        blogData: undefined,
-        index: 0,
-        length: undefined,
-      }
-    }
-    componentDidMount() {
-      axios.get('/api/blogs')
-        .then((res) => {
-          this.setState({
-            blogData: res.data,
-            length: res.data.length,
-          })
+  state = {
+    blogData: undefined,
+    index: 0,
+    length: undefined,
+  }
+
+  componentDidMount() {
+    axios.get('/api/blogs')
+      .then((res) => {
+        this.setState({
+          blogData: res.data,
+          length: res.data.length,
         })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
     handleNext = () =>
       this.setState({
         index: this.state.index - 1,

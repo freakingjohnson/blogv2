@@ -10,7 +10,8 @@ const express = require('express'),
   getMsg = require('./decorators/getMsg'),
   getImg = require('./decorators/getImg'),
   postBlog = require('./decorators/postBlog'),
-  postImg = require('./decorators/postImg')
+  postImg = require('./decorators/postImg'),
+  deleteImage = require('./decorators/deleteImage')
 
 const app = express()
 app.use(bodyParser.json({ limit: '200mb' }))
@@ -35,6 +36,7 @@ getMsg(app)
 sendMsg(app)
 getImg(app)
 postImg(app)
+deleteImage(app)
 
 const io = socket.listen(app.listen(process.env.SERVER_PORT, () => {
   console.log('wubba lubba dub dub!')

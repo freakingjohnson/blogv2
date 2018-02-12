@@ -49,6 +49,7 @@ class Discussion extends React.Component {
   componentDidMount = () => {
     this.getMessages()
   }
+
   getMessages = () => {
     axios.get('/api/getMsg')
       .then((res) => {
@@ -60,10 +61,12 @@ class Discussion extends React.Component {
         console.log(err)
       })
   }
+
   gotoBottom = () => {
     let element = document.getElementById('list');
     element.scrollTop = element.scrollHeight - element.clientHeight;
   }
+
   sendMessage = async () => {
     if (this.state.message.length > 0 && this.state.message !== '<p><br></p>') {
       socket.emit('send message', {
@@ -83,12 +86,15 @@ class Discussion extends React.Component {
       this.gotoBottom()
     }
   }
+
   changeMessage = (value) => {
     this.setState({ message: value })
   }
+
   changeName = (e) => {
     this.setState({ name: e.target.value })
   }
+
   render() {
     const { classes, modules, formats } = this.props
     const {

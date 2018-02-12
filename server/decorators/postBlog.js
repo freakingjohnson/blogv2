@@ -1,6 +1,6 @@
 const postBlog = (req, res) => {
   const db = req.app.get('db')
-  console.log(req.body)
+  // console.log(req.body)
   db.post_blog([req.body.title, req.body.body, req.body.date])
     .then(() => res.status(200).send())
     .catch(err =>
