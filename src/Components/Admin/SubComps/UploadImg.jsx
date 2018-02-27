@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { change, drop, post, getImg } from '../../../ducks/subDucks/imgReducer'
 
 const upload = (image, cols, rows, title, cb, cb2) => {
-  let uploaders = image.map((image) => {
+  image.map((image) => {
     const formData = new FormData();
     formData.append('file', image);
     formData.append('tags', 'blogpictures');
@@ -73,6 +73,7 @@ const UploadImg = ({
       variant="raised"
       onClick={() => upload(image, cols, rows, name, post, getImg)}
       color="primary"
+      disabled={image.length === 0}
     >
         Upload
     </Button>

@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 const initialState = {
+  blogData: [],
+  length: 0,
   title: '',
   body: '',
   modules: {
@@ -19,19 +21,30 @@ const initialState = {
   ],
 }
 
-const CHANGE_BODY = 'CHANGE_BODY',
-  CHANGE_TITLE = 'CHANGE_TITLE',
-  RESET = 'RESET'
+const CHANGE = 'CHANGE',
+  RESET = 'RESET',
+  GET = 'GET'
 
 export const changeBody = value => ({
-  type: CHANGE_BODY,
+  type: CHANGE,
+  data: 'body',
   payload: value,
 })
 
 export const changeTitle = e => ({
-  type: CHANGE_TITLE,
+  type: CHANGE,
+  data: 'title',
   payload: e.target.value,
 })
+
+export const getBlogs = () => async (dispatch) => {
+  let blogData = await axios.get('/api/blogs')
+  return dispatch({
+    type: GET,
+    data: 'blogData',
+    payload: blogData.data,
+  })
+}
 
 export const postBlog = (title, body) => {
   let today = new Date(),
@@ -54,12 +67,12 @@ export const postBlog = (title, body) => {
 }
 
 export default function blogReducer(state = initialState, action) {
-  const { payload, type } = action
+  const { payload, type, data } = action
   switch (type) {
-    case CHANGE_BODY:
-      return { ...state, body: payload }
-    case CHANGE_TITLE:
-      return { ...state, title: payload }
+    case CHANGE:
+      return { ...state, [data]: payload }
+    case GET:
+      return { ...state, [data]: payload, length: payload.length }
     case RESET:
       return initialState
     default:

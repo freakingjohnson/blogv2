@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import router from './router/router'
 import NavBar from './Components/NavBar/NavBar'
 import { getImg } from './ducks/subDucks/imgReducer'
+import { getBlogs } from './ducks/subDucks/blogReducer'
+
 
 const back = require('./assets/back.png')
 
@@ -12,11 +14,13 @@ class App extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     getImg: PropTypes.func.isRequired,
+    getBlogs: PropTypes.func.isRequired,
   }
 
   componentDidMount = () => {
-    const { getImg } = this.props
+    const { getImg, getBlogs } = this.props
     getImg()
+    getBlogs()
   }
 
   render() {
@@ -46,4 +50,4 @@ const styles = {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { getImg })(withStyles(styles)(App))
+export default connect(mapStateToProps, { getImg, getBlogs })(withStyles(styles)(App))
