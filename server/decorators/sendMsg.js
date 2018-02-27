@@ -1,8 +1,8 @@
-const sendMsg = (req, res, next) => {
+const sendMsg = (req, res) => {
   const db = req.app.get('db')
   db.send_msg([req.body.name, req.body.body, req.body.date])
-    .then(response => res.status(200).send())
-    .catch((error) => {
+    .then(res => res.status(200).send())
+    .catch((err) => {
       res.status(500).send()
     })
 }

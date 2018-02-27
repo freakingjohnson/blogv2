@@ -6,6 +6,7 @@ const express = require('express'),
   massive = require('massive'),
   socket = require('socket.io'),
   getBlogs = require('./decorators/getBlogs'),
+  updateBlog = require('./decorators/updateBlog'),
   sendMsg = require('./decorators/sendMsg'),
   getMsg = require('./decorators/getMsg'),
   getImg = require('./decorators/getImg'),
@@ -37,6 +38,7 @@ sendMsg(app)
 getImg(app)
 postImg(app)
 deleteImage(app)
+updateBlog(app)
 
 const io = socket.listen(app.listen(process.env.SERVER_PORT, () => {
   console.log('wubba lubba dub dub!')

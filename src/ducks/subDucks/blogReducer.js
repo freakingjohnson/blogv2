@@ -5,6 +5,10 @@ const initialState = {
   length: 0,
   title: '',
   body: '',
+  newTitle: '',
+  newBody: '',
+  id: 0,
+  index: 0,
   modules: {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -23,7 +27,8 @@ const initialState = {
 
 const CHANGE = 'CHANGE',
   RESET = 'RESET',
-  GET = 'GET'
+  GET = 'GET',
+  SET = 'SET'
 
 export const changeBody = value => ({
   type: CHANGE,
@@ -31,11 +36,20 @@ export const changeBody = value => ({
   payload: value,
 })
 
-export const changeTitle = e => ({
+export const changeNewBody = value => ({
   type: CHANGE,
-  data: 'title',
-  payload: e.target.value,
+  data: 'newBody',
+  payload: value,
 })
+
+export const changeTitle = (e) => {
+  const { value, name } = e.target
+  return {
+    type: CHANGE,
+    data: name,
+    payload: value,
+  }
+}
 
 export const getBlogs = () => async (dispatch) => {
   let blogData = await axios.get('/api/blogs')
@@ -45,6 +59,15 @@ export const getBlogs = () => async (dispatch) => {
     payload: blogData.data,
   })
 }
+
+export const setBlog = (blogData, index) => ({
+  type: SET,
+  payload: {
+    body: blogData[index].body,
+    title: blogData[index].title,
+    id: blogData[index].id,
+  },
+})
 
 export const postBlog = (title, body) => {
   let today = new Date(),
@@ -66,6 +89,20 @@ export const postBlog = (title, body) => {
   }
 }
 
+export const updateBlog = (newTitle, newBody, id, cb) => {
+  axios.put('/api/updateblog', {
+    body: newBody,
+    title: newTitle,
+    id,
+  }).catch((error) => {
+    console.log(error)
+  })
+  cb()
+  return {
+    type: RESET,
+  }
+}
+
 export default function blogReducer(state = initialState, action) {
   const { payload, type, data } = action
   switch (type) {
@@ -73,8 +110,21 @@ export default function blogReducer(state = initialState, action) {
       return { ...state, [data]: payload }
     case GET:
       return { ...state, [data]: payload, length: payload.length }
+    case SET:
+      return {
+        ...state,
+        newBody: payload.body,
+        newTitle: payload.title,
+        id: payload.id,
+      }
     case RESET:
-      return initialState
+      return {
+        ...state,
+        body: '',
+        newBody: '',
+        title: '',
+        newTitle: '',
+      }
     default:
       return state
   }

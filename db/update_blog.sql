@@ -1,0 +1,1 @@
+update blogs set title = $1, body = $2 where id = $3;

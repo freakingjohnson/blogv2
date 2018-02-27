@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import router from './router/router'
 import NavBar from './Components/NavBar/NavBar'
 import { getImg } from './ducks/subDucks/imgReducer'
-import { getBlogs } from './ducks/subDucks/blogReducer'
+import { getBlogs, setBlog } from './ducks/subDucks/blogReducer'
 
 
 const back = require('./assets/back.png')
@@ -15,6 +15,9 @@ class App extends Component {
     classes: PropTypes.object.isRequired,
     getImg: PropTypes.func.isRequired,
     getBlogs: PropTypes.func.isRequired,
+    setBlog: PropTypes.func.isRequired,
+    blogData: PropTypes.array.isRequired,
+    index: PropTypes.number.isRequired,
   }
 
   componentDidMount = () => {
@@ -23,9 +26,16 @@ class App extends Component {
     getBlogs()
   }
 
+  componentDidUpdate = () => {
+    const { setBlog, blogData, index } = this.props
+    setBlog(blogData, index)
+  }
+
+
   render() {
-    const { classes } = this.props
+    const { classes, blogData } = this.props
     return (
+      blogData.length > 0 &&
       <div className={classes.root}>
         <Reboot />
         <NavBar />
@@ -48,6 +58,9 @@ const styles = {
   },
 }
 
-const mapStateToProps = state => state
+const mapStateToProps = state => ({
+  blogData: state.blogReducer.blogData,
+  index: state.blogReducer.index,
+})
 
-export default connect(mapStateToProps, { getImg, getBlogs })(withStyles(styles)(App))
+export default connect(mapStateToProps, { getImg, getBlogs, setBlog })(withStyles(styles)(App))

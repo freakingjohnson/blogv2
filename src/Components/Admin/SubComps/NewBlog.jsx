@@ -12,11 +12,13 @@ const NewBlog = ({
     <TextField
       label="Blog Title"
       type="text"
-      onChange={changeTitle}
+      name="title"
+      onChange={e => changeTitle(e)}
       value={title}
     />
     <ReactQuill
       value={body}
+      name="body"
       modules={modules}
       formats={formats}
       placeholder="start typing..."
