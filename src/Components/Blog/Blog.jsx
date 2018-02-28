@@ -27,8 +27,6 @@ class Blog extends React.Component {
   render() {
     const { index } = this.state
     const { classes, blogData, length } = this.props
-    console.log(blogData)
-    // const clean = blogData && DOMPurify.sanitize(blogData[index].body)
     return (
       <div className={classes.root}>
         {

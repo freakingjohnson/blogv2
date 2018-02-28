@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const initialState = {
   name: '',
+  imageIndex: 0,
   image: [],
   imageData: [],
   cols: 0,
@@ -9,7 +10,7 @@ const initialState = {
 }
 
 const CHANGE = 'CHANGE',
-  RESET = 'RESET'
+  RESET_IMG = 'RESET_IMG'
 
 export const drop = image => ({
   type: CHANGE,
@@ -23,6 +24,15 @@ export const change = (e) => {
     type: CHANGE,
     data: name,
     payload: value,
+  }
+}
+
+export const changeImageIndex = (index, inc) => {
+  const x = index + inc
+  return {
+    type: CHANGE,
+    data: 'imageIndex',
+    payload: x,
   }
 }
 
@@ -47,12 +57,12 @@ export const post = (title, cols, rows, image, public_id) => {
     console.log(err)
   })
   return {
-    type: RESET,
+    type: RESET_IMG,
   }
 }
 
 export const reset = () => ({
-  type: RESET,
+  type: RESET_IMG,
 })
 
 export default function imgReducer(state = initialState, action) {
@@ -62,7 +72,7 @@ export default function imgReducer(state = initialState, action) {
   switch (type) {
     case CHANGE:
       return { ...state, [data]: payload }
-    case RESET:
+    case RESET_IMG:
       return {
         ...state, cols: 0, rows: 0, name: '', image: [],
       }

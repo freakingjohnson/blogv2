@@ -22,6 +22,7 @@ const EditBlog = ({
   id,
 }) => (
   <div className={classes.root}>
+    <h3>Edit Blog</h3>
     <TextField
       value={newTitle ? newTitle : 'just a moment...'}
       label="Blog Title"
@@ -58,7 +59,7 @@ const EditBlog = ({
     <Button
       className={classes.update}
       variant="raised"
-      color="secondary"
+      color="default"
       disabled={!newBody || !newTitle}
       onClick={() => updateBlog(newTitle, newBody, id, getBlogs)}
     >

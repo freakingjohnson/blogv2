@@ -28,7 +28,6 @@ class Gallery extends React.Component {
       isOpen,
       imageSrc,
     } = this.state
-    console.log(imageData)
     return (
       <div className={classes.root}>
         <GridList cellHeight={160} className={classes.gridList} cols={3}>

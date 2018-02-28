@@ -48,7 +48,6 @@ const io = socket.listen(app.listen(process.env.SERVER_PORT, () => {
 
 io.on('connection', (client) => {
   client.on('subscribeToTimer', (interval) => {
-    // console.log('client is subscribing to timer with interval ', interval);
     setInterval(() => {
       client.emit('timer', new Date().toString());
     }, interval);

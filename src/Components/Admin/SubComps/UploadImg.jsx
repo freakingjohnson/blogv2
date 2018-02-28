@@ -31,7 +31,7 @@ const UploadImg = ({
 }) => (
   <div className={classes.root}>
     <div>
-      <p>Upload Image</p>
+      <h3>Upload Image</h3>
       <TextField
         primary="true"
         placeholder="Enter Image Name Here"

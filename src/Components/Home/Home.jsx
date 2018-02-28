@@ -13,10 +13,16 @@ const Home = ({ classes }) => (
     <Card>
       <CardHeader title="Welcome" className={classes.welcome} />
       <CardContent>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+        <p>
+          This is a blog app created as a personal project by Nathan Johnson.
+        </p>
+        <p>
+          The original project was made at DevMountain around halfway through the 12 weeks.
+          Source code for both can be found on my <a href="https://github.com/freakingjohnson">GitHub page</a>
+        </p>
+        <p>
+          If you are checking things out go ahead and play around but delete anything in admin you upload please! thank you.
+        </p>
       </CardContent>
     </Card>
     <Carousel

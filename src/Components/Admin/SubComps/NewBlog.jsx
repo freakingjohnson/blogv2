@@ -9,6 +9,7 @@ const NewBlog = ({
   classes, modules, formats, body, title, changeBody, changeTitle, postBlog, getBlogs,
 }) => (
   <div className={classes.root}>
+    <h3>Post New Blog</h3>
     <TextField
       label="Blog Title"
       type="text"

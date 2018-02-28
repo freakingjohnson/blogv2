@@ -22,14 +22,18 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    const { getImg, getBlogs } = this.props
-    getImg()
+    const {
+      getBlogs,
+    } = this.props
     getBlogs()
   }
 
   componentDidUpdate = () => {
-    const { setBlog, blogData, index } = this.props
+    const {
+      setBlog, blogData, index, getImg,
+    } = this.props
     setBlog(blogData, index)
+    getImg()
   }
 
   render() {

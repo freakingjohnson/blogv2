@@ -7,7 +7,7 @@ import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
 import createDOMPurify from 'dompurify'
 import '../../../node_modules/react-quill/dist/quill.snow.css'
-import subscribeToTimer from './timer'
+import { subscribeToTimer, unsubscribeFromTimer } from './timer'
 
 const socket = io(),
   DOMPurify = createDOMPurify(window)
@@ -32,6 +32,10 @@ class Discussion extends React.Component {
       history: [],
       timestamp: 'no timestamp',
     }
+  }
+
+  componentDidMount = () => {
+    this.getMessages()
     subscribeToTimer((err, timestamp) => this.setState({
       timestamp,
     }))
@@ -46,8 +50,8 @@ class Discussion extends React.Component {
     })
   }
 
-  componentDidMount = () => {
-    this.getMessages()
+  componentWillUnmount = () => {
+    unsubscribeFromTimer()
   }
 
   getMessages = () => {
