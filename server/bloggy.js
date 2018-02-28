@@ -32,9 +32,6 @@ app.use(session({
 }))
 
 app.use(express.static(`${__dirname}/../build`))
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-})
 
 getBlogs(app)
 postBlog(app)
@@ -45,6 +42,10 @@ sendMsg(app)
 getImg(app)
 postImg(app)
 deleteImage(app)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 const io = socket.listen(app.listen(process.env.SERVER_PORT, () => {
   console.log('wubba lubba dub dub!')

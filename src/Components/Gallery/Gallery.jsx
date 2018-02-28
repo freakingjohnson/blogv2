@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Lightbox from 'react-image-lightbox'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { withStyles, GridList, GridListTile } from 'material-ui'
 
 
@@ -81,4 +82,4 @@ const mapStateToProps = state => ({
   imageData: state.imgReducer.imageData,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(Gallery))
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Gallery)))
