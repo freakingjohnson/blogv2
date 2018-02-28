@@ -3,7 +3,6 @@ import { MenuItem, TextField, Button, withStyles, Select } from 'material-ui'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { change, drop, post, getImg } from '../../../ducks/subDucks/imgReducer'
 
@@ -111,6 +110,6 @@ UploadImg.propTypes = {
   image: PropTypes.array.isRequired,
 }
 
-export default withRouter(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   change, drop, post, getImg,
-})(withStyles(styles)(UploadImg)))
+})(withStyles(styles)(UploadImg))

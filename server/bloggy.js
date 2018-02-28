@@ -31,6 +31,9 @@ app.use(session({
 }))
 
 app.use(express.static(`${__dirname}/../build`))
+app.get('/*', (req, res) => {
+  res.sendFile(`${__dirname}/../build/index.html`)
+})
 
 getBlogs(app)
 postBlog(app)

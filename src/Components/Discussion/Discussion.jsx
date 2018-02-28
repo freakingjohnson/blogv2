@@ -5,7 +5,6 @@ import io from 'socket.io-client'
 import axios from 'axios'
 import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import createDOMPurify from 'dompurify'
 import '../../../node_modules/react-quill/dist/quill.snow.css'
 import { subscribeToTimer, unsubscribeFromTimer } from './timer'
@@ -247,4 +246,4 @@ const mapStateToProps = state => ({
   formats: state.blogReducer.formats,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(withRouter(Discussion)))
+export default connect(mapStateToProps)(withStyles(styles)(Discussion))

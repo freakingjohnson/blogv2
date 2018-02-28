@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Typography, GridList, withStyles } from 'material-ui';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
 const createDOMPurify = require('dompurify'),
   DOMPurify = createDOMPurify(window)
@@ -86,4 +85,4 @@ const mapStateToProps = state => ({
   length: state.blogReducer.length,
 })
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Blog)))
+export default connect(mapStateToProps)(withStyles(styles)(Blog))

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cloudinary from 'cloudinary'
 import axios from 'axios'
@@ -81,4 +80,4 @@ DeleteImg.propTypes = {
   reset: PropTypes.func.isRequired,
 }
 
-export default withRouter(connect(mapStateToProps, { getImg, changeImageIndex, reset })(withStyles(styles)(DeleteImg)))
+export default connect(mapStateToProps, { getImg, changeImageIndex, reset })(withStyles(styles)(DeleteImg))
