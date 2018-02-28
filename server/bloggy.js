@@ -13,7 +13,8 @@ const express = require('express'),
   deleteBlog = require('./decorators/deleteBlog'),
   getImg = require('./decorators/getImg'),
   postImg = require('./decorators/postImg'),
-  deleteImage = require('./decorators/deleteImage')
+  deleteImage = require('./decorators/deleteImage'),
+  path = require('path')
 
 const app = express()
 app.use(bodyParser.json({ limit: '200mb' }))
@@ -32,7 +33,7 @@ app.use(session({
 
 app.use(express.static(`${__dirname}/../build`))
 app.get('/*', (req, res) => {
-  res.sendFile(`${__dirname}/../build/index.html`)
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 })
 
 getBlogs(app)
