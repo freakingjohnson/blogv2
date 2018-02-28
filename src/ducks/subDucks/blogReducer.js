@@ -78,7 +78,7 @@ export const setBlog = (blogData, index) => ({
   },
 })
 
-export const postBlog = (title, body, cb) => {
+export const postBlog = (title, body, cb) => async (dispatch) => {
   let today = new Date(),
     dd = today.getDate(),
     mm = today.getMonth() + 1,
@@ -86,7 +86,7 @@ export const postBlog = (title, body, cb) => {
   dd < 10 && (dd = `0${dd}`)
   mm < 10 && (mm = `0${mm}`)
   today = `${yyyy}-${mm}-${dd}`
-  axios.post('/api/postblog', {
+  await axios.post('/api/postblog', {
     title,
     body,
     date: today,
@@ -94,9 +94,9 @@ export const postBlog = (title, body, cb) => {
     console.log(error)
   })
   cb()
-  return {
+  return dispatch({
     type: RESET,
-  }
+  })
 }
 
 export const updateBlog = (newTitle, newBody, id, cb) => {
