@@ -3,10 +3,10 @@ import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button, TextField, withStyles } from 'material-ui'
-import { changeBody, changeTitle, postBlog } from '../../../ducks/subDucks/blogReducer'
+import { changeBody, changeTitle, postBlog, getBlogs } from '../../../ducks/subDucks/blogReducer'
 
 const NewBlog = ({
-  classes, modules, formats, body, title, changeBody, changeTitle, postBlog,
+  classes, modules, formats, body, title, changeBody, changeTitle, postBlog, getBlogs,
 }) => (
   <div className={classes.root}>
     <TextField
@@ -28,7 +28,7 @@ const NewBlog = ({
       variant="raised"
       color="primary"
       disabled={!body || !title}
-      onClick={() => postBlog(title, body)}
+      onClick={() => postBlog(title, body, getBlogs)}
     >
     Post
     </Button>
@@ -61,7 +61,10 @@ NewBlog.propTypes = {
   changeBody: PropTypes.func.isRequired,
   changeTitle: PropTypes.func.isRequired,
   postBlog: PropTypes.func.isRequired,
+  getBlogs: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, { changeBody, changeTitle, postBlog })(withStyles(styles)(NewBlog))
+export default connect(mapStateToProps, {
+  changeBody, changeTitle, postBlog, getBlogs,
+})(withStyles(styles)(NewBlog))

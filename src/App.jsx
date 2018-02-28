@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { withStyles, Reboot } from 'material-ui'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -10,7 +11,7 @@ import { getBlogs, setBlog } from './ducks/subDucks/blogReducer'
 
 const back = require('./assets/back.png')
 
-class App extends Component {
+class App extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     getImg: PropTypes.func.isRequired,
@@ -31,17 +32,15 @@ class App extends Component {
     setBlog(blogData, index)
   }
 
-
   render() {
-    const { classes, blogData } = this.props
+    const { classes } = this.props
     return (
-      blogData.length > 0 &&
       <div className={classes.root}>
         <Reboot />
         <NavBar />
         {router}
       </div>
-    );
+    )
   }
 }
 
@@ -63,4 +62,4 @@ const mapStateToProps = state => ({
   index: state.blogReducer.index,
 })
 
-export default connect(mapStateToProps, { getImg, getBlogs, setBlog })(withStyles(styles)(App))
+export default withRouter(connect(mapStateToProps, { getImg, getBlogs, setBlog })(withStyles(styles)(App)))

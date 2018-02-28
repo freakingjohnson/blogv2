@@ -51,6 +51,15 @@ export const changeTitle = (e) => {
   }
 }
 
+export const changeIndex = (index, inc) => {
+  const x = index + inc
+  return {
+    type: CHANGE,
+    data: 'index',
+    payload: x,
+  }
+}
+
 export const getBlogs = () => async (dispatch) => {
   let blogData = await axios.get('/api/blogs')
   return dispatch({
@@ -69,7 +78,7 @@ export const setBlog = (blogData, index) => ({
   },
 })
 
-export const postBlog = (title, body) => {
+export const postBlog = (title, body, cb) => {
   let today = new Date(),
     dd = today.getDate(),
     mm = today.getMonth() + 1,
@@ -84,6 +93,7 @@ export const postBlog = (title, body) => {
   }).catch((error) => {
     console.log(error)
   })
+  cb()
   return {
     type: RESET,
   }
@@ -97,6 +107,17 @@ export const updateBlog = (newTitle, newBody, id, cb) => {
   }).catch((error) => {
     console.log(error)
   })
+  cb()
+  return {
+    type: RESET,
+  }
+}
+
+export const deleteBlog = (id, cb) => {
+  axios.delete(`/api/deleteblog/${id}`)
+    .catch((error) => {
+      console.log(error)
+    })
   cb()
   return {
     type: RESET,

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { List, ListItem, ListItemText, withStyles, ListItemIcon, Divider } from 'material-ui'
 import { Link } from 'react-router-dom'
-import { Home, Description, QuestionAnswer, PhotoLibrary } from 'material-ui-icons'
+import { Home, Description, QuestionAnswer, Settings, PhotoLibrary } from 'material-ui-icons'
 
 const MenuItems = ({ handleClose, classes }) => (
   <div className={classes.list}>
@@ -33,6 +33,13 @@ const MenuItems = ({ handleClose, classes }) => (
           <PhotoLibrary />
         </ListItemIcon>
         <ListItemText className={classes.listText} primary="Gallery" />
+      </ListItem>
+      <Divider />
+      <ListItem className={classes.listItem} button component={Link} to="/admin" onClick={handleClose}>
+        <ListItemIcon>
+          <Settings />
+        </ListItemIcon>
+        <ListItemText className={classes.listText} primary="Admin" />
       </ListItem>
     </List>
   </div>

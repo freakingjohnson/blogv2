@@ -5,12 +5,13 @@ const express = require('express'),
   session = require('express-session'),
   massive = require('massive'),
   socket = require('socket.io'),
-  getBlogs = require('./decorators/getBlogs'),
-  updateBlog = require('./decorators/updateBlog'),
   sendMsg = require('./decorators/sendMsg'),
   getMsg = require('./decorators/getMsg'),
-  getImg = require('./decorators/getImg'),
+  getBlogs = require('./decorators/getBlogs'),
   postBlog = require('./decorators/postBlog'),
+  updateBlog = require('./decorators/updateBlog'),
+  deleteBlog = require('./decorators/deleteBlog'),
+  getImg = require('./decorators/getImg'),
   postImg = require('./decorators/postImg'),
   deleteImage = require('./decorators/deleteImage')
 
@@ -33,12 +34,13 @@ app.use(express.static(`${__dirname}/../build`))
 
 getBlogs(app)
 postBlog(app)
+updateBlog(app)
+deleteBlog(app)
 getMsg(app)
 sendMsg(app)
 getImg(app)
 postImg(app)
 deleteImage(app)
-updateBlog(app)
 
 const io = socket.listen(app.listen(process.env.SERVER_PORT, () => {
   console.log('wubba lubba dub dub!')
