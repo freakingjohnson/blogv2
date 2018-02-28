@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Button, TextField, withStyles } from 'material-ui'
 import { changeBody, changeTitle, postBlog, getBlogs } from '../../../ducks/subDucks/blogReducer'
@@ -66,6 +67,6 @@ NewBlog.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   changeBody, changeTitle, postBlog, getBlogs,
-})(withStyles(styles)(NewBlog))
+})(withStyles(styles)(NewBlog)))
