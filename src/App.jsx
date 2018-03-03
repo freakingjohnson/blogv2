@@ -8,7 +8,6 @@ import NavBar from './Components/NavBar/NavBar'
 import { getImg } from './ducks/subDucks/imgReducer'
 import { getBlogs, setBlog } from './ducks/subDucks/blogReducer'
 
-
 const back = require('./assets/back.png')
 
 class App extends React.Component {
