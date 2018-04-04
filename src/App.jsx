@@ -8,8 +8,6 @@ import NavBar from './Components/NavBar/NavBar'
 import { getImg } from './ducks/subDucks/imgReducer'
 import { getBlogs, setBlog } from './ducks/subDucks/blogReducer'
 
-const back = require('./assets/back.png')
-
 class App extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -53,8 +51,7 @@ const styles = {
     height: 'auto',
     minHeight: '100vh',
     paddingBottom: '60px',
-    backgroundImage: `url(${back})`,
-    backgroundAttachment: 'fixed',
+    backgroundColor: 'black',
     backgroundRepeat: 'repeat',
     backgroundSize: 'cover',
   },

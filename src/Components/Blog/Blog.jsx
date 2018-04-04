@@ -78,6 +78,7 @@ const styles = {
     width: '100%',
     margin: '0',
     background: 'white',
+    borderRadius: '5px',
   },
 }
 
