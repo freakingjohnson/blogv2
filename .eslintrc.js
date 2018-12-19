@@ -12,7 +12,7 @@ module.exports = {
         "ecmaVersion": 2017,
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
-            "experimentalDecoratos": true,
+            "experimentalDecorators": true,
             "jsx": true
         },
         "sourceType": "module"
@@ -34,8 +34,8 @@ module.exports = {
         "react/forbid-prop-types": 0,
         "no-use-before-define": 0,
         "max-len": 0,
-        "linebreak-style":0,
-        "prefer-const":0,
+        "linebreak-style": 0,
+        "prefer-const": 0,
         "no-nested-ternary": 0,
         "react/no-array-index-key": 0,
         "guard-for-in": 0,
